@@ -1,0 +1,20 @@
+  <div ng-controller="sideNavCtrl" layout="column" class="sidenavdemoBasicUsage" ng-show="$root.currentUser">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+
+
+    <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools">Menu</h1>
+  </md-toolbar>
+  <md-content layout-padding="">
+  <!--div><md-button ng-href="/home" md-no-ink class="md-primary" ng-click="toggleLeft()">Home</md-button></div-->
+  <div><md-button ng-href="/dashboard" md-no-ink class="md-primary" ng-click="toggleLeft()">Dashboard</md-button></div>
+  <div><md-button ng-href="/loginsimulator" md-no-ink class="md-primary" ng-click="toggleLeft()">Login Simulator</md-button></div>
+
+</md-content>
+</md-sidenav>
+<div>
+  <md-button ng-click="toggleLeft()" class="md-fab md-primary">
+  <md-icon md-svg-icon="navigation:ic_menu_24px"></md-icon>
+</md-button>
+</div>
+</div>

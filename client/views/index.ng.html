@@ -1,0 +1,30 @@
+<div ng-controller="baseCtrl" ng-init="init()" >
+
+ <md-content>
+ <md-toolbar>
+ <div class="md-toolbar-tools">
+ <h2>
+  <span>Big Data Analyser</span>
+</h2>
+<span flex></span>
+<md-button ng-href="/login" ng-hide="$root.currentUser">Login</md-button>
+<md-button ng-href="/register" ng-hide="$root.currentUser">Sign up</md-button>
+<div ng-show="$root.currentUser" style="font-family: Arial; font-size: 14px;">Welcome {{$root.currentUser.emails[0].address}}</div>
+<md-button ng-href="/logout" ng-show="$root.currentUser">Logout</md-button>
+</div>
+</md-toolbar>
+
+</md-content>
+
+<div layout="row" >
+  <div flex="5">
+      <div ng-include="'client/views/sideNav.ng.html'"></div>
+  </div>
+  <div  flex="90">
+    <div ui-view ></div>
+  </div>
+   <div  flex="5">
+
+  </div>
+</div>
+</div>

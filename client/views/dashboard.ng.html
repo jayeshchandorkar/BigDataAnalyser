@@ -1,0 +1,240 @@
+<div layout="row">
+<div flex="100" style="padding-top: 25px; padding-bottom: 5px; border-bottom: solid 1px #dfdfdf;">
+	<text style="font-family: Arial; font-size: 20px; font-weight:bold;">Dashboard</text>
+</div>
+</div>
+<div ng-controller="dashboardCtrl" layout="column" >
+  <div layout="row">
+  	<div flex="100" id="loading" >
+  		<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  	</div>	  		
+  </div>	
+  <div layout="row" layout-wrap ng-init="init()" ng-controller="browserChartCtrl" style="border-bottom: solid 1px #dfdfdf;">
+  <div flex="30" style="padding-top: 20px;">
+	   <div id="browserChart"></div>
+  </div>
+  <div flex="70" style="padding-top: 35px;">
+   		<div id="browserLineChart"></div>
+  </div>
+  <div flex>
+  </div>
+</div>
+<div layout="row" layout-wrap ng-init="init()" ng-controller="userChartCtrl" style="padding-top: 25px; padding-bottom: 20px; border-bottom: solid 1px #dfdfdf;">
+  <div flex="100">
+	   <div id="usersChart"></div>
+		<md-button class="md-raised md-primary" ng-click="mainChart()" style="margin-left: 1294px;">
+           	<md-icon md-svg-icon="navigation:ic_arrow_back_24px" ></md-icon>
+   		</md-button> 
+  </div>
+</div>
+<div layout="row" layout-wrap ng-init="init()" ng-controller="eventTypeChartCtrl" style="border-bottom: solid 1px #dfdfdf;">
+  <div flex="70">
+	   <div id="eventChart"></div>
+  </div>
+  <div id="userPerMonth" flex="30" style="padding-top: 50px; display:none;">
+  	<md-card>
+
+		  <md-toolbar class="md-theme-light">
+
+		  <h2 class="md-toolbar-tools">
+
+		    <span>Avg. Event Count/Month</span>
+
+		  </h2>
+
+		</md-toolbar>
+
+		<md-content>
+
+		<md-list>
+
+		<md-list-item class="md-3-line">
+
+		<div class="md-list-item-text">
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Login:</b> <div style="float: right;"><text id="login" >0 </text> </div> </div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Logout:</b> <div style="float: right;"><text id="logout">0 </text> </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Expiration:</b> <div style="float: right;"><text id="expiration"> 0</text> </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Failed Login:</b> <div style="float: right; color:red;"><text id="failedLogin"> </text>0 </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Failed Challenge Question:</b> <div style="float: right; color:red;"><text id="failedChallenge">0</text> </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Failed Red Herring:</b> <div style="float: right; color:red;"><text id="redHerring">0 </text> </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Failed OneTimePassword:</b> <div style="float: right; color:red;"><text id="failedOneTime"> 0</text> </div></div>
+
+		 <div style="color:rgba(0,0,0,0.54); font-size:14px;">  <b>Forced Logout:</b> <div style="float: right;"><text id="forcedLogout">0 </text> </div></div>
+		</div>
+		</md-list-item>
+		</md-list>
+		</md-content>
+		</md-card>
+  </div>
+</div>
+
+<div style="padding-top: 20px; padding-left: 140px;">
+	<text style="font-family: Arial; font-size: 14px; font-weight:bold;">Data Anomalies</text>
+</div>
+<div layout="row" layout-wrap style="padding-top: 25px; padding-bottom: 25px; border-bottom: solid 1px #dfdfdf; padding-left: 85px;"  ng-controller='duplicateRecordsCtrl'  ng-init="init()">
+
+  <div flex="50">
+
+     <md-card>
+
+       <md-toolbar class="md-theme-light">
+
+         <h2 class="md-toolbar-tools">Duplicate Records</h2>
+
+      </md-toolbar>
+
+    <md-content>
+
+      <md-list>
+
+        <md-list-item class="md-3-line">
+
+          <div style="padding-left:15px; color:rgba(0,0,0,.54); font-size:14px;">  <b>Duplicate Data Count :</b>  <span id="duplicateDataCount" > </span>
+			<md-button md-no-ink class="md-primary" ng-show="!table.show" ng-click="showTable()"> More Details</md-button>
+		    <md-button md-no-ink class="md-primary" ng-show="table.show" ng-click="showTable()"> Hide Details</md-button> 
+		</div>
+
+          </md-list-item>
+
+          <md-list-item >
+
+          <div style="width:100%;">
+
+              <div  ng-if ="table.show"  class="constrained">
+
+              <div class="CSSTableGenerator">
+
+                  <table  infinite-scroll='loadMore()' infinite-scroll-distance='2' infinite-scroll-container='".constrained"' border=1>
+
+                          <tr>
+
+                           <th>LoginName</th>
+
+                           <th>IpAddress</th>
+
+                           <th>Date</th>
+
+                           <th>Duplicates</th>
+
+                            </tr>
+
+                            <tr ng-repeat='row in rows' style="min-width: 300px;">
+
+                             <td>{{row.LoginName}}</td>
+
+                             <td>{{row.IpAddress}}</td>
+
+                             <td>{{row.LoginDate}}</td>
+
+                             <td>{{row.Duplicates}}</td>
+
+                            </tr>
+
+                          </table>
+
+                          </div>
+
+                        </div>
+
+                        </div>
+
+        </md-list-item>
+
+      </md-list>
+
+    </md-content>
+
+    </md-card>
+
+    </div>
+
+
+
+
+  <div flex="50" ng-controller='bulkFailureCtrl' ng-init="duplicateRecordsInit()">
+
+     <md-card>
+
+       <md-toolbar class="md-theme-light">
+
+         <h2 class="md-toolbar-tools">Bulk Failures</h2>
+
+      </md-toolbar>
+
+    <md-content>
+
+      <md-list>
+
+        <md-list-item class="md-3-line">
+
+          <div style="padding-left:15px; color:rgba(0,0,0,.54); font-size:14px;">  <b>Login failure Count :</b>  <span id="bulkFailureCount" > </span>
+			<md-button md-no-ink class="md-primary" ng-show="!table.show" ng-click="showTable()"> More Details</md-button>
+		    <md-button md-no-ink class="md-primary" ng-show="table.show" ng-click="showTable()"> Hide Details</md-button> 
+		</div>
+
+          </md-list-item>
+
+          <md-list-item >
+
+                        <div  style="width:100%;" ng-if = "table.show" class="CSSTableGenerator">
+
+                          <table>
+
+                          <tr>
+
+                          <th>Login Name</th>
+
+                           <th>Date</th>
+
+                           <th>Hour</th>
+
+                           <th>Count</th>
+
+                            </tr>
+
+                            <tr ng-repeat='row in rows' style="min-width: 300px;">
+
+                             <td>{{row.loginName}}</td>
+
+                             <td>{{row.Date}}</td>
+
+                             <td>{{row.Hour}}</td>
+
+                             <td>{{row.Count}}</td>
+
+                            </tr>
+
+                          </table>
+
+                        </div>
+
+        </md-list-item>
+
+      </md-list>
+
+    </md-content>
+
+    </md-card>
+
+    </div>
+
+</div>
+
+<div layout="row" layout-wrap ng-init="init()" ng-controller="userMapCtrl" style="padding-top: 25px; border-bottom: solid 1px #dfdfdf;">
+  <div flex="10"></div>
+  <div flex="70">
+  		<div>
+  			<text style="font-family: Arial; font-size: 14px; font-weight:bold;">Global Utilization(Users)</text>
+  		</div>
+	   <div id="userDistMap"></div>
+  </div>
+  <div flex="10"></div>
+</div>
+</div>

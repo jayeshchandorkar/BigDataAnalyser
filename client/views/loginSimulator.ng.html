@@ -1,0 +1,127 @@
+<div layout="row">
+<div flex="100" style="padding-top: 25px; padding-bottom: 5px; border-bottom: solid 1px #dfdfdf;">
+  <text style="font-family: Arial; font-size: 20px; font-weight:bold;">Login Simulator</text>
+</div>
+</div>
+<div layout="row">
+  <div flex="100" id="loading" >
+    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  </div>
+</div>
+<div ng-controller="loginSimulatorCtrl" layout="column" style="padding-left:50px; padding-top:10px">
+
+  <md-content md-theme="docs-dark" layout-padding layout="column">
+  <div layout="row">
+    <div layout="row">
+
+      <md-input-container flex="50">
+      <label>Login Name</label>
+      <input ng-model="user.loginName" ng-blur="onUserEnter()">
+    </md-input-container>
+    <md-input-container flex="50">
+    <label>Location</label>
+    <input ng-model="user.location" >
+  </md-input-container>
+
+</div>
+
+<div layout="row">
+  <md-input-container flex="50">
+  <label>Browser</label>
+  <input ng-model="user.browser">
+</md-input-container>
+
+<md-input-container flex="50">
+<label>Operating System</label>
+<input ng-model="user.os" >
+</md-input-container>
+
+</div>
+
+<section layout="row" layout-sm="column" layout-wrap>
+ <md-button class="md-fab md-raised md-primary" ng-click="simulateLogin()">
+  <md-icon md-svg-icon="communication:ic_call_made_24px" ></md-icon>
+ </md-button>
+</section>
+
+</div>
+
+
+
+<div layout="row">
+
+  <md-card flex="32">
+  <md-toolbar class="md-theme-light">
+  <h2 class="md-toolbar-tools">
+    <span>Prediction</span>
+  </h2>
+</md-toolbar>
+<md-content>
+<md-list>
+<md-list-item class="md-3-line">
+<div class="md-list-item-text">
+ <p> <b>Browser :</b> <span>{{prediction.browser}} </span> </p>
+ <p>  <b>Operating System :</b> <span> {{prediction.os}}</span> </p>
+ <p>  <b>Location :</b> <span>{{prediction.location}} </span> </p>
+</div>
+</md-list-item>
+</md-list>
+
+</md-content>
+</md-card>
+
+
+<md-card flex="32">
+<md-toolbar class="md-theme-light">
+<h2 class="md-toolbar-tools">
+  <span>Last Login</span>
+</h2>
+</md-toolbar>
+<md-content>
+<md-list>
+<md-list-item class="md-3-line">
+<div class="md-list-item-text">
+ <p> <b>Browser :</b> <span>{{lastLogin.browser}} </span> </p>
+ <p>  <b>Operating System :</b> <span> {{lastLogin.os}}</span> </p>
+ <p>  <b>Location :</b> <span>{{lastLogin.location}} </span> </p>
+</div>
+</md-list-item>
+</md-list>
+
+</md-content>
+</md-card>
+
+<md-card flex="32">
+<md-toolbar class="md-theme-light" ng-class="threatClass">
+<h2 class="md-toolbar-tools">
+  <span>Threat Percentages</span>
+</h2>
+</md-toolbar>
+<md-content>
+<md-list>
+<md-list-item class="md-3-line">
+<div class="md-list-item-text">
+ <p> <b>Overall :</b> <span><b>{{threat.total}} </b></span> </p>
+ <p>  <b>Operating System :</b> <span> {{threat.os}}</span> </p>
+ <p>  <b>Location :</b> <span>{{threat.location}} </span> </p>
+ <p>  <b>Browser :</b> <span>{{threat.browser}} </span> </p>
+</div>
+</md-list-item>
+</md-list>
+
+</md-content>
+</md-card>
+</div>
+
+</md-content>
+
+<md-button class="md-button md-default-theme" ng-click="drawDetails()" style="background-color: rgba(158,158,158,0.2);">Show Details</md-button>
+<div layout ="row">
+  <div id="osPieChart" flex="33"></div>
+  <div id="locationPieChart" flex="33"></div>
+  <div id="browserPieChart" flex="33"></div>
+</div>
+
+
+
+</div>
